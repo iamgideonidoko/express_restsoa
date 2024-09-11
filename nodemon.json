@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "js,ts,json",
+  "ignore": ["src/tsoa", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "exec": "pnpm generate:tsoa"
+}

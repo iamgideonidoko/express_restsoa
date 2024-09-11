@@ -1,0 +1,5 @@
+sub.domain.tld {
+  reverse_proxy express_restsoa_be_dev:6901 {
+    header_down Strict-Transport-Security max-age=31536000;
+  }
+}

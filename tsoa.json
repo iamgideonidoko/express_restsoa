@@ -1,0 +1,26 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/**/*.controller.ts", "src/**/*.dto.ts"],
+  "spec": {
+    "outputDirectory": "build",
+    "specVersion": 3,
+    "basePath": "/api",
+    "name": "ExpressResTSOA API Docs",
+    "description": " ",
+    "license": " ",
+    "securityDefinitions": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "token"
+      }
+    }
+  },
+  "routes": {
+    "basePath": "/api",
+    "routesDir": "src/tsoa",
+    "iocModule": "src/ioc",
+    "authenticationModule": "src/auth"
+  }
+}

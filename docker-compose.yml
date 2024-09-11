@@ -1,0 +1,73 @@
+version: '3.9'
+
+services:
+  # Caddy server
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+  app:
+    container_name: express_restsoa_be
+    image: express_restsoa_be
+    restart: unless-stopped
+    build:
+      context: .
+    # ports:
+    #   - '6900:6900'
+    depends_on:
+      - caddy
+      - db
+
+  app-dev:
+    container_name: express_restsoa_be_dev
+    image: express_restsoa_be_dev
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # ports:
+    #   - '6901:6901'
+    depends_on:
+      - caddy
+      - db-dev
+
+  db:
+    container_name: express_restsoa_db
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: express_restsoa_db
+    ports:
+      - '6932:5432'
+    volumes:
+      - express_restsoa_db_data:/var/lib/postgresql/data # Persist data on the host
+
+  db-dev:
+    container_name: express_restsoa_db_dev
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: express_restsoa_db_dev
+    ports:
+      - '6933:5432'
+    volumes:
+      - express_restsoa_db_data_dev:/var/lib/postgresql/data # Persist data on the host
+
+volumes:
+  express_restsoa_db_data:
+  express_restsoa_db_data_dev:
+  caddy_data:
+  caddy_config:
