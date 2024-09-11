@@ -21,3 +21,15 @@ Content-Type: application/json
   "password": "123456"
 }
 
+# Get user profile
+GET http://localhost:6901/api/auth/profile
+Cookie: token={{TEST_TOKEN}}
+
+# Refresh user token
+POST http://localhost:6901/api/auth/refresh
+Content-Type: application/json
+Cookie: refresh={{TEST_REFRESH}}
+
+# Sign out user
+POST http://localhost:6901/api/auth/signout
+Content-Type: application/json
